@@ -19,6 +19,24 @@ const habitsError = (error) => {
     }
 };
 
+const edit = (id) => {
+    return {
+        type: 'SHOW_INPUT',
+        payload: id
+    }
+};
+
+const removeHabit = (idx, habitsService, dispatch) => {
+    habitsService.removeHabit(idx)
+        .then(() => fetchHabits(habitsService, dispatch)())
+        .catch((error) => dispatch(habitsError(error)));
+};
+
+const makeNewHabit = (habitsService, dispatch) => (newHabit) => {
+    habitsService.makeNewHabit(newHabit)
+        .then(() => fetchHabits(habitsService, dispatch)())
+        .catch((error) => dispatch(habitsError(error)));
+};
 
 const fetchHabits = (habitsService, dispatch) => () => {
     dispatch(habitsRequested());
@@ -29,4 +47,7 @@ const fetchHabits = (habitsService, dispatch) => () => {
 
 export {
     fetchHabits,
+    makeNewHabit,
+    edit,
+    removeHabit
 };

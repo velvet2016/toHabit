@@ -5,13 +5,24 @@ import HabitsService from '../../services/HabitsService';
 import HabitListItem from '../habit-list-item';
 import Spinner from '../spinner';
 import ErrorIndicator from '../error-indicator';
-import { fetchHabits } from '../../redux/actions';
+import {fetchHabits, edit, removeHabit} from '../../redux/actions';
 import './habitList.css';
 
-const HabitList = ({ habits }) => {
+const HabitList = ({ habits, showInput, edit, removeHabit}) => {
+
     return (
         <ul className='habit-list'>
-            {habits.map(habit => <li key={habit.id}><HabitListItem habit={habit}/></li>)}
+            {habits.map((habit, idx) => {
+                return (
+                    <HabitListItem edit={() => edit(habit.id)}
+                                   removeHabit={() => removeHabit(idx)}
+                                   idx={idx}
+                                   showInput={showInput}
+                                   habit={habit}
+                                   key={habit.id}/>
+                )
+            })
+            }
         </ul>
     )
 };
@@ -24,26 +35,31 @@ class HabitsContainer extends Component {
 
     render() {
         console.log(this.props);
-        const {habits, loading, error} = this.props;
+        const {habits, loading, error, showInput, edit, removeHabit} = this.props;
         console.log('props: ' + JSON.stringify(this.props));
 
         if(loading) return <Spinner />;
 
         if(error) return <ErrorIndicator message={error.message} />;
 
-        return <HabitList habits={habits}/>
+        return <HabitList edit={edit}
+                          showInput={showInput}
+                          habits={habits}
+                          removeHabit={removeHabit}/>
     }
 }
 
-const mapStateToProps = ({ habits, loading, error }) => {
-    return { habits, error, loading };
+const mapStateToProps = ({ habits, loading, error, showInput }) => {
+    //console.log(showInput);
+    return { habits, error, loading, showInput };
 };
 
 const mapDispatchToProps = (dispatch) => {
     const habitsService = new HabitsService();
-    console.log(habitsService);
     return {
         fetchHabits: fetchHabits(habitsService, dispatch),
+        edit: id => dispatch(edit(id)),
+        removeHabit: idx => removeHabit(idx, habitsService, dispatch)//removeHabit(habitsService, dispatch),
     }
 };
 

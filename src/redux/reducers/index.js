@@ -1,6 +1,8 @@
 
 const initialState = {
     habits: [],
+    newHabit: {},
+    showInput: ''
 };
 
 const reducer = (state = initialState, action) => {
@@ -18,6 +20,7 @@ console.log('action payload: '+action.payload);
         case 'FETCH_HABITS_SUCCESS':
             return {
                 ...state,
+                showInput: '',
                 habits: action.payload,
                 loading: false,
                 error: null
@@ -28,6 +31,19 @@ console.log('action payload: '+action.payload);
                 habits: [],
                 loading: false,
                 error: action.payload
+            };
+        case 'SHOW_INPUT':
+            return {
+                ...state,
+                showInput: action.payload
+            };
+        case 'REMOVE_HABIT':
+            return {
+                ...state,
+                showInput: '',
+                habits: action.payload,
+                loading: false,
+                error: null
             };
         default:
             return state
