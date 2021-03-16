@@ -2,7 +2,7 @@ import React, {Component} from "react";
 import HabitsService from '../../services/HabitsService';
 import './editHabit.css'
 import {connect} from "react-redux";
-import { makeNewHabit } from "../../redux/actions";
+import { makeEditHabit } from "../../redux/actions";
 
 class EditHabit extends Component {
 
@@ -68,7 +68,7 @@ class EditHabit extends Component {
 const mapDispatchToProps = (dispatch) => {
     const habitsService = new HabitsService();
     return {
-        makeNewHabit: makeNewHabit(habitsService, dispatch),
+        makeNewHabit: makeEditHabit(habitsService, dispatch),
     }
 };
 

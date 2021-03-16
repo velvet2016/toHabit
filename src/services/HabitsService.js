@@ -3,19 +3,19 @@ let habits = [
     {
         id: 1,
         title: 'morning run',
-        category: 'sport'
+        category: 'Sport'
     },
     {
         id: 2,
         title: 'read 30 minutes',
-        category: 'spiritual'
+        category: 'Spiritual'
     }];
 
 export default class HabitsService {
 
-    makeNewHabit({idx = habits.length, title, category, id}) {
+    makeEditHabit({idx = habits.length, title, category, id}) {
 
-        const actualId = id ? id : habits[habits.length-1].id + 1; //change id formation
+        const actualId = id ? id : habits[habits.length] + 5; //change id formation
 
         const newHabit = {
             id: actualId,

@@ -1,19 +1,28 @@
+import 'bootstrap/dist/css/bootstrap.min.css';
 import React from 'react';
 import {Switch, Route} from 'react-router-dom';
 import {LoginPage, HomePage} from '../../pages';
+import Header from "../header";
+import Footer from "../footer";
+import {Container, Row, Col} from 'react-bootstrap';
 import './app.css';
-import Header from "../header/Header";
+
 
 const App = () => {
 
     return (
-        <main role='main' className='container'>
-            <Header />
-            <Switch>
-                <Route exact path='/' component ={HomePage}/>
-                <Route path='/login' component={LoginPage}/>
-            </Switch>
-        </main>
+        <Container role='main'>
+            <Row>
+                <Col>
+                    <Header />
+                    <Switch>
+                        <Route exact path='/' component ={HomePage}/>
+                        <Route path='/login' component={LoginPage}/>
+                    </Switch>
+                    <Footer />
+                </Col>
+            </Row>
+        </Container>
     )
 };
 

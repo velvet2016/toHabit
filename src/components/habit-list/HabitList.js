@@ -7,23 +7,27 @@ import Spinner from '../spinner';
 import ErrorIndicator from '../error-indicator';
 import {fetchHabits, edit, removeHabit} from '../../redux/actions';
 import './habitList.css';
+import {Container, ListGroup, Row} from "react-bootstrap";
 
-const HabitList = ({ habits, showInput, edit, removeHabit}) => {
+const HabitList = ({ habits, showInput, edit, removeHabit }) => {
 
     return (
-        <ul className='habit-list'>
-            {habits.map((habit, idx) => {
-                return (
-                    <HabitListItem edit={() => edit(habit.id)}
-                                   removeHabit={() => removeHabit(idx)}
-                                   idx={idx}
-                                   showInput={showInput}
-                                   habit={habit}
-                                   key={habit.id}/>
-                )
-            })
-            }
-        </ul>
+        <Container className='container-habit-list'>
+            <Row >
+                <ListGroup className='w-100'>
+                    {habits.map((habit, idx) => {
+                        return (
+                            <HabitListItem edit={() => edit(habit.id)}
+                                           removeHabit={() => removeHabit(idx)}
+                                           idx={idx}
+                                           showInput={showInput}
+                                           habit={habit}
+                                           key={habit.id}/>
+                        )
+                    })}
+                </ListGroup>
+            </Row>
+        </Container>
     )
 };
 
@@ -57,7 +61,7 @@ const mapStateToProps = ({ habits, loading, error, showInput }) => {
 const mapDispatchToProps = (dispatch) => {
     const habitsService = new HabitsService();
     return {
-        fetchHabits: fetchHabits(habitsService, dispatch),
+        fetchHabits : () => dispatch(fetchHabits()),
         edit: id => dispatch(edit(id)),
         removeHabit: idx => removeHabit(idx, habitsService, dispatch)//removeHabit(habitsService, dispatch),
     }

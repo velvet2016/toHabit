@@ -1,8 +1,18 @@
-import {createStore} from 'redux';
+import {createStore, applyMiddleware, compose} from 'redux';
+import createSagaMiddleware from 'redux-saga';
 import reducers from './reducers';
+import sagaWatcher from '../saga';
 
-const store = createStore(reducers,
+
+const sagaMiddleware = createSagaMiddleware();
+
+
+const store = createStore(reducers, compose(
+    applyMiddleware(sagaMiddleware),
     window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+    )
 );
+
+sagaMiddleware.run(sagaWatcher);
 
 export default store

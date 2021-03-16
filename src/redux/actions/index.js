@@ -1,8 +1,8 @@
 
-const habitsLoaded = (books) => {
+const habitsLoaded = (habits) => {
     return {
         type: 'FETCH_HABITS_SUCCESS',
-        payload: books
+        payload: habits
     }
 };
 
@@ -28,26 +28,27 @@ const edit = (id) => {
 
 const removeHabit = (idx, habitsService, dispatch) => {
     habitsService.removeHabit(idx)
-        .then(() => fetchHabits(habitsService, dispatch)())
+        .then(() => dispatch(fetchHabits()))
         .catch((error) => dispatch(habitsError(error)));
 };
 
-const makeNewHabit = (habitsService, dispatch) => (newHabit) => {
-    habitsService.makeNewHabit(newHabit)
-        .then(() => fetchHabits(habitsService, dispatch)())
+const makeEditHabit = (habitsService, dispatch) => (newHabit) => {
+    habitsService.makeEditHabit(newHabit)
+        .then(() => dispatch(fetchHabits()))
         .catch((error) => dispatch(habitsError(error)));
 };
 
-const fetchHabits = (habitsService, dispatch) => () => {
-    dispatch(habitsRequested());
-    habitsService.getHabits()
-        .then((data) => dispatch(habitsLoaded(data)))
-        .catch((error) => dispatch(habitsError(error)));
+const fetchHabits = () => {
+    return {
+        type: 'FETCH_HABITS'
+    }
 };
 
 export {
+    habitsRequested,
+    habitsLoaded,
     fetchHabits,
-    makeNewHabit,
+    makeEditHabit,
     edit,
     removeHabit
 };

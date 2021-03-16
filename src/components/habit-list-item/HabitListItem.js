@@ -1,21 +1,32 @@
 import React from 'react';
 import './habitListItem.css';
 import EditHabit from "../edit-habit/EditHabit";
+import Button from "react-bootstrap/esm/Button";
+import {Col, ListGroup, Row} from "react-bootstrap";
+import InputNewHabit from "../input-edit-habit/InputEditHabit";
+import {FiEdit2} from 'react-icons/fi';
+import {RiDeleteBinLine} from "react-icons/ri";
+import {MdCheck} from "react-icons/md";
 
 const HabitListItem = ({habit, showInput, idx, edit, removeHabit}) => {
-    console.log(habit);
     const {id, title, category} = habit;
 
-    const inputEdit = showInput === id ? <EditHabit idx={idx} habit={habit}/> : null;
+    const inputEdit = showInput === id ? <InputNewHabit idx={idx} habit={habit}/> : null;
     return (
-        <li className='habit-list-item'>
-            <div>{title}</div>
-            <div>{category}</div>
-            <button>mark today</button>
-            <button onClick={removeHabit}>delete</button>
-            <button onClick={edit}>edit</button>
-            {inputEdit}
-        </li>
+                <ListGroup.Item >
+                    <Row>
+                        {inputEdit || <><Col className={category.toLowerCase()}>
+                            <Row>
+                                    <Button className='mr-2' variant="outline-info"><MdCheck/> {category}</Button>
+                                <p className='align-self-center mb-0'>{title}</p>
+                            </Row>
+                        </Col>
+                            <Col sm={2.5} className='pr-0 pl-0'>
+                                <Button variant="outline-dark" className='mr-2' onClick={removeHabit}><RiDeleteBinLine/></Button>
+                                <Button variant="outline-warning" onClick={edit}><FiEdit2/></Button>
+                        </Col></>}
+                    </Row>
+                </ListGroup.Item>
     )
 };
 
