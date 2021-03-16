@@ -1,11 +1,10 @@
 import React, {Component} from "react";
-import HabitsService from '../../services/HabitsService';
 import {connect} from "react-redux";
-import { makeEditHabit } from "../../redux/actions";
+import {makeEditHabit} from "../../redux/actions";
 
 import './inputEditHabit.css'
 import {FiEdit2} from 'react-icons/fi';
-import {Col, Button, Row, Form, InputGroup, FormControl, Container} from "react-bootstrap";
+import {Button, Col, Container, Form, FormControl, InputGroup, Row} from "react-bootstrap";
 import {GrFormAdd} from "react-icons/gr";
 
 
@@ -34,7 +33,6 @@ class InputEditHabit extends Component {
     }
 
     handleChange = (e) => {
-        console.log(e.target.value);
         this.setState({[e.target.name]: e.target.value});
     };
 
@@ -43,7 +41,7 @@ class InputEditHabit extends Component {
 
         if (!this.state.title.trim()) return;
 
-        this.props.makeNewHabit(this.state);
+        this.props.makeEditHabit(this.state);
 
     };
 
@@ -98,9 +96,9 @@ class InputEditHabit extends Component {
 }
 
 const mapDispatchToProps = (dispatch) => {
-    const habitsService = new HabitsService();
+
     return {
-        makeNewHabit: makeEditHabit(habitsService, dispatch),
+        makeEditHabit: (newHabit) => dispatch(makeEditHabit(newHabit)),
     }
 };
 

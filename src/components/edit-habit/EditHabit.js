@@ -1,8 +1,7 @@
 import React, {Component} from "react";
-import HabitsService from '../../services/HabitsService';
 import './editHabit.css'
 import {connect} from "react-redux";
-import { makeEditHabit } from "../../redux/actions";
+import {makeEditHabit} from "../../redux/actions";
 
 class EditHabit extends Component {
 
@@ -34,7 +33,6 @@ class EditHabit extends Component {
     };
 
     render() {
-        console.log('check category: ' + JSON.stringify(this.props));
         return (
             <form className = "AddItem container input-group" onSubmit = {this.onSubmit}>
                 <input className = "form-control"
@@ -66,9 +64,8 @@ class EditHabit extends Component {
 }
 
 const mapDispatchToProps = (dispatch) => {
-    const habitsService = new HabitsService();
     return {
-        makeNewHabit: makeEditHabit(habitsService, dispatch),
+        makeNewHabit: (newHabit) => dispatch(makeEditHabit(newHabit)),
     }
 };
 

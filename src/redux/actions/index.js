@@ -1,46 +1,57 @@
+import {
+    FETCH_HABITS,
+    FETCH_HABITS_FAILURE,
+    FETCH_HABITS_REQUEST,
+    FETCH_HABITS_SUCCESS,
+    MAKE_EDIT_HABIT,
+    REMOVE_HABIT,
+    SHOW_INPUT
+} from "./types";
 
 const habitsLoaded = (habits) => {
     return {
-        type: 'FETCH_HABITS_SUCCESS',
+        type: FETCH_HABITS_SUCCESS,
         payload: habits
     }
 };
 
 const habitsRequested = () => {
     return {
-        type: 'FETCH_HABITS_REQUEST',
+        type: FETCH_HABITS_REQUEST,
     }
 };
 
 const habitsError = (error) => {
     return {
-        type: 'FETCH_HABITS_FAILURE',
+        type: FETCH_HABITS_FAILURE,
         payload: error
     }
 };
 
 const edit = (id) => {
     return {
-        type: 'SHOW_INPUT',
+        type: SHOW_INPUT,
         payload: id
     }
 };
 
-const removeHabit = (idx, habitsService, dispatch) => {
-    habitsService.removeHabit(idx)
-        .then(() => dispatch(fetchHabits()))
-        .catch((error) => dispatch(habitsError(error)));
+const removeHabit = (idx) => {
+    return {
+        type: REMOVE_HABIT,
+        payload: idx
+    }
 };
 
-const makeEditHabit = (habitsService, dispatch) => (newHabit) => {
-    habitsService.makeEditHabit(newHabit)
-        .then(() => dispatch(fetchHabits()))
-        .catch((error) => dispatch(habitsError(error)));
+const makeEditHabit = (newHabit) => {
+    return {
+        type: MAKE_EDIT_HABIT,
+        payload: newHabit
+    }
 };
 
 const fetchHabits = () => {
     return {
-        type: 'FETCH_HABITS'
+        type: FETCH_HABITS
     }
 };
 
@@ -50,5 +61,6 @@ export {
     fetchHabits,
     makeEditHabit,
     edit,
+    habitsError,
     removeHabit
 };

@@ -15,7 +15,7 @@ export default class HabitsService {
 
     makeEditHabit({idx = habits.length, title, category, id}) {
 
-        const actualId = id ? id : habits[habits.length] + 5; //change id formation
+        const actualId = id ? id : Math.floor(Math.random() * 10000); //change id formation
 
         const newHabit = {
             id: actualId,

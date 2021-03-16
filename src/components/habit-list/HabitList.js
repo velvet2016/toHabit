@@ -1,11 +1,10 @@
 import React, {Component} from 'react';
-import { connect } from 'react-redux';
-import HabitsService from '../../services/HabitsService';
+import {connect} from 'react-redux';
 
 import HabitListItem from '../habit-list-item';
 import Spinner from '../spinner';
 import ErrorIndicator from '../error-indicator';
-import {fetchHabits, edit, removeHabit} from '../../redux/actions';
+import {edit, fetchHabits, removeHabit} from '../../redux/actions';
 import './habitList.css';
 import {Container, ListGroup, Row} from "react-bootstrap";
 
@@ -38,9 +37,7 @@ class HabitsContainer extends Component {
     }
 
     render() {
-        console.log(this.props);
         const {habits, loading, error, showInput, edit, removeHabit} = this.props;
-        console.log('props: ' + JSON.stringify(this.props));
 
         if(loading) return <Spinner />;
 
@@ -54,16 +51,14 @@ class HabitsContainer extends Component {
 }
 
 const mapStateToProps = ({ habits, loading, error, showInput }) => {
-    //console.log(showInput);
     return { habits, error, loading, showInput };
 };
 
 const mapDispatchToProps = (dispatch) => {
-    const habitsService = new HabitsService();
     return {
         fetchHabits : () => dispatch(fetchHabits()),
         edit: id => dispatch(edit(id)),
-        removeHabit: idx => removeHabit(idx, habitsService, dispatch)//removeHabit(habitsService, dispatch),
+        removeHabit: idx => dispatch(removeHabit(idx))
     }
 };
 
