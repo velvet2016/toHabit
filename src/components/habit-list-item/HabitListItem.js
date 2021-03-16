@@ -1,6 +1,5 @@
 import React from 'react';
 import './habitListItem.css';
-import EditHabit from "../edit-habit/EditHabit";
 import Button from "react-bootstrap/esm/Button";
 import {Col, ListGroup, Row} from "react-bootstrap";
 import InputNewHabit from "../input-edit-habit/InputEditHabit";
